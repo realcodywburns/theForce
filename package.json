@@ -1,0 +1,24 @@
+{
+  "name": "theforce",
+  "version": "1.0.0",
+  "description": "Neurosity Crown git push",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/realcodywburns/theForce.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/realcodywburns/theForce/issues"
+  },
+  "homepage": "https://github.com/realcodywburns/theForce#readme",
+  "dependencies": {
+    "@neurosity/notion": "^5.16.0",
+    "dotenv": "^16.0.0",
+    "robotjs": "^0.6.0"
+  }
+}
