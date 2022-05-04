@@ -13,7 +13,7 @@ const { email, password } = require("./auth");
     //I dont want to triger it more than once really wait at least 15 triggers before
       if (flags >= 15){
         exec(
-           "git add . && git commit -m 'force push!' && git push -u origin master -f",
+           "git add . && git commit -m 'force push' && git push",
            (err, stdout, stderr) => {
              console.log(err ? stderr : stdout);
              process.exit();
