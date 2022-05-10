@@ -18,6 +18,7 @@
   "homepage": "https://github.com/realcodywburns/theForce#readme",
   "dependencies": {
     "@neurosity/notion": "^5.16.0",
+    "asciichart": "^1.5.25",
     "dotenv": "^16.0.0",
     "robotjs": "^0.6.0"
   }

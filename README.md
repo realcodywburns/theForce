@@ -1,5 +1,5 @@
 # theForce
-Neurosity Crown git push
+Neurosity Crown - Teams hotkeys
 
 
 ## Step 1 - attack of the clone
@@ -32,6 +32,6 @@ In the terminal prompt, enter
 
 ## Step 5 - USE THE FORCE!!!!!!!
 
-Think pushing thoughts, the code waits until you reach more than 15 triggers and then pushs the code to git!
+Think pushing thoughts, the code waits until you reach more than 15 triggers and then triggers the key combination!
 
-![Use the force](./lib/use_the_force.png)
+![Use the force](./lib/use_the_force_2.png)
