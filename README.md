@@ -32,6 +32,9 @@ In the terminal prompt, enter
 
 ## Step 5 - USE THE FORCE!!!!!!!
 
-Think pushing thoughts, the code waits until you reach more than 15 triggers and then triggers the key combination!
+Think pushing thoughts, the code waits until you reach more than 15 triggers(flags) and then triggers the key combination!
+
+The chart turns green when unmuted, red when the mic is muted.
+
 
 ![Use the force](./lib/use_the_force_2.png)

@@ -1,40 +1,51 @@
 require("dotenv").config();
 
 const { Notion: Mind } = require("@neurosity/notion");
-const robot = require("robotjs");
-
-const { chart, hkc, hkcd } = require("./modules");
+const { chart, hkc, hkcd, auth} = require("./modules");
 
 
 (async function main() {
-  const mind = new Mind();
+  var mind = new Mind();
+  //login
+  mind = await auth(mind);
+
+  //build array for chartData
   
-  var s0 = new Array (120);
-  for (i = 1; i < s0.length; i++){
-    s0[i] = 0;
+  var state = {
+    flags : 0,
+    isTrigger : false,
+    s0 : new Array (120),
   }
 
-  email = process.env.NEUROSITY_EMAIL;
-  await mind.login({ email, process.env.NEUROSITY_PASSWORD }).catch(console.error);
+  for (i = 1; i < state.s0.length; i++){
+    state.s0[i] = 0;
+  }
+  
 
-
-  console.log("waiting to detect mind push");
-  var flags = 0;
-  var isTrigger = true; //start out assuming the system is in a off state
-
+  console.log('awaiting mind signal');
   mind
     .predictions(process.env.ACTION)
     .subscribe((prediction) => {
-      s0 = chart(prediction.probability, s0, isTrigger);
-      //console.log("mind mute probability of", prediction.probability);
-      //if the model is over 80% confidence, trigger a force push if we are not muted
-      //this will call the force push function
-      if (prediction.probability > 0.8 && isMute){
-          process.env.DEMO ? hkc(isTrigger, flags) : hkcd(isTrigger, flags);
-        } ;
-      //if we are unmuted(isMute is false) try to mute if we go under 80% confidence
-      if (prediction.probability < 0.8 && !isTrigger){
-        process.env.DEMO ? hkc(isTrigger, flags) : hkcd(isTrigger, flags);
-      } ;
+      //draw the chart
+      state = chart(prediction.probability, state);
+      switch(process.env.TYPE){
+        case 'hold' :
+          //if the model is over threshold confidence, trigger a the action
+          //this will call the force push function
+          if (prediction.probability > process.env.THRESHOLD && state.isTrigger){
+          //this is the function called when trigger is pushed
+            state = !process.env.DEMO ? hkc(state) : hkcd(state);
+          } 
+          //if isTrigger is false, try to trigger if we go under threashold confidence
+          if (prediction.probability < process.env.THRESHOLD && !state.isTrigger){
+            state = !process.env.DEMO ? hkc(state) : hkcd(state);
+          } ;
+          break;
+        default:
+          //default action is to single tap key, off -on toggle
+          if (prediction.probability > process.env.THRESHOLD){
+            state = !process.env.DEMO ? hkc(state) : hkcd(state);
+          } ;
+      }
     });
 })();
