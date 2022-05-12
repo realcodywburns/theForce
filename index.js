@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const { Notion: Mind } = require("@neurosity/notion");
-const { chart, hkc, hkcd, auth} = require("./modules");
+const { chart, hkc, hkcd, auth, State} = require("./modules");
 
 
 (async function main() {
@@ -11,17 +11,9 @@ const { chart, hkc, hkcd, auth} = require("./modules");
 
   //build array for chartData
   
-  var state = {
-    flags : 0,
-    isTrigger : false,
-    s0 : new Array (120),
-  }
-
-  for (i = 1; i < state.s0.length; i++){
-    state.s0[i] = 0;
-  }
+  var state = new State();
+   
   
-
   console.log('awaiting mind signal');
   mind
     .predictions(process.env.ACTION)
